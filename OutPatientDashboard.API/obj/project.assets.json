@@ -3456,11 +3456,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Pranav\\OutPatientDashboard\\OutPatientDashboard.API\\OutPatientDashboard.API.csproj",
+      "projectUniqueName": "C:\\Pranav\\Workspace\\OutPatientDashboard.API\\OutPatientDashboard.API.csproj",
       "projectName": "OutPatientDashboard.API",
-      "projectPath": "C:\\Pranav\\OutPatientDashboard\\OutPatientDashboard.API\\OutPatientDashboard.API.csproj",
+      "projectPath": "C:\\Pranav\\Workspace\\OutPatientDashboard.API\\OutPatientDashboard.API.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "C:\\Pranav\\OutPatientDashboard\\OutPatientDashboard.API\\obj\\",
+      "outputPath": "C:\\Pranav\\Workspace\\OutPatientDashboard.API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

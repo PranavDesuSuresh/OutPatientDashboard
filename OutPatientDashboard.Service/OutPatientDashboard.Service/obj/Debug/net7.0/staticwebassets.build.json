@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "le4NhDVSBStvRMQHvuvHDPg4ZseBqeKRlsxrDnhgo9c=",
+  "Source": "OutPatientDashboard.Service",
+  "BasePath": "_content/OutPatientDashboard.Service",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
