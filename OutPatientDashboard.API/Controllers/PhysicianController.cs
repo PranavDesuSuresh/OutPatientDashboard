@@ -1,12 +1,6 @@
 ﻿using AutoMapper;
-using Azure.Identity;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OutPatientDashboard.API.Data;
-using OutPatientDashboard.API.DTO.Physician;
-using OutPatientDashboard.API.Models;
-using System;
+using OutPatientDashboard.API.Managers;
 
 namespace OutPatientDashboard.API.Controllers
 {
@@ -14,13 +8,13 @@ namespace OutPatientDashboard.API.Controllers
     [ApiController]
     public class PhysicianController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
         private readonly IMapper _mapper;
+        private readonly IPhysicianManager _physicianManager;
 
-        public PhysicianController(ApplicationDBContext context,IMapper mapper)
+        public PhysicianController(IMapper mapper, IPhysicianManager physicianManager)
         {
-            _context = context;
             _mapper = mapper;
+            _physicianManager = physicianManager;
         }
 
         [HttpGet]
@@ -28,18 +22,16 @@ namespace OutPatientDashboard.API.Controllers
         {
             try
             {
-                var physicians = await _context.Physician.ToListAsync();
+                var physicians = await _physicianManager.GetPhysicianList();
 
                 if (physicians == null)
                 {
                     return NotFound();
                 }
 
-                List<PhysicianIdNameDto> physicianIdNameList = _mapper.Map<List<Physician>, List<PhysicianIdNameDto>>(physicians);
-
-                return Ok(physicianIdNameList);
+                return Ok(physicians);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -50,23 +42,11 @@ namespace OutPatientDashboard.API.Controllers
         {
             try
             {
-                var physician = await _context.Physician.FindAsync(id);
-
-                if (physician == null)
-                {
-                    return NotFound();
-                }
-
-                //TODO : fix the logic p
-                var throughput = _context.Patient.Count(
-                    p => p.Physician != null
-                    && p.PhysicianId == id
-                    && p.DischargeDate.HasValue
-                    && p.DischargeDate.Value.Month == (DateTime.Now.Month - 1));
+                var throughput = await _physicianManager.GetPhysicianThroughPut(id);
 
                 return Ok(throughput);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

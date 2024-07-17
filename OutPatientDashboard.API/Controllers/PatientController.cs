@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using OutPatientDashboard.API.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using OutPatientDashboard.API.Managers;
 
 namespace OutPatientDashboard.API.Controllers
 {
@@ -9,10 +7,11 @@ namespace OutPatientDashboard.API.Controllers
     [ApiController]
     public class PatientController : ControllerBase
     {
-        private readonly ApplicationDBContext _context;
-        public PatientController(ApplicationDBContext context)
+        private readonly IPatientManager _patientManager;
+
+        public PatientController(IPatientManager patientManager)
         {
-            _context = context;
+            _patientManager = patientManager;
         }
 
         [HttpGet("incarecount")]
@@ -20,11 +19,7 @@ namespace OutPatientDashboard.API.Controllers
         {
             try
             {
-                int inCarePatientCount = await _context.Patient
-                    .CountAsync(a => 
-                    a.AdmissionDate.HasValue 
-                    && a.AdmissionDate.Value.Date == DateTime.Today
-                    && !a.DischargeDate.HasValue);
+                int inCarePatientCount = await _patientManager.GetInCarePatientCount();
 
                 return Ok(inCarePatientCount);
             }
@@ -39,12 +34,7 @@ namespace OutPatientDashboard.API.Controllers
         {
             try
             {
-                date ??= DateTime.Today;
-
-                int dischargeCount = await _context.Patient
-                    .CountAsync(a =>
-                    a.DischargeDate.HasValue
-                    && a.AdmissionDate.Value.Date == date.Value.Date);
+                int dischargeCount = await _patientManager.PatientsDischargedByDate(date);
 
                 return Ok(dischargeCount);
             }

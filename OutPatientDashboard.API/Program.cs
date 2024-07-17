@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using OutPatientDashboard.API.Data;
+using OutPatientDashboard.API.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,10 @@ builder.Services.AddDbContext<ApplicationDBContext>(Options =>
 {
     Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnString"));
 });
+
+// DI 
+builder.Services.AddScoped<IPatientManager, PatientManager>();
+builder.Services.AddScoped<IPhysicianManager, PhysicianManager>();
 
 var app = builder.Build();
 
