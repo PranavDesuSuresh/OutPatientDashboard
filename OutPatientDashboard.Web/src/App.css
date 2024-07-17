@@ -1,0 +1,11 @@
+
+body{height:100vh;}
+
+.dashboard {
+    background-color: black;
+    height: inherit;
+}
+
+#root{
+    height:100%;
+}

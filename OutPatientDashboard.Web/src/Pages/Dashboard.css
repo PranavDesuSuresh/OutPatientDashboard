@@ -1,0 +1,11 @@
+
+.banner{
+    color: white;
+    text-align: center !important;
+    display: block !important;
+    padding: 2% 0 2% 0;
+}
+
+.dashboardbody{
+    height: inherit;
+}
