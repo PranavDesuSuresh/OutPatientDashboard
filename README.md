@@ -7,9 +7,8 @@
 2. Update the connection string to the db in ~\OutPatientDashboard.Service\OutPatientDashboard.Service\appsettings.json against the key DefaultConnString.
 3. Open ~\OutPatientDashboard.Service\OutPatientDashboard.Service.sln on visual studio and build project.
 4. After successfull build, on package manager console run the below commands
-	* run "Add-Migration InitialCreate"
 	* run "Update-Database"
-5. Run the datascripts in the specified numbered order. Available at - ~\DataScripts on your db.
+5. Execute the datascripts available at "~\DataScripts" on your db in the specified numeric order.
 6. Run the Service project via VS. This should bring up the swagger page.
 
 **Frontend Setup** - 
