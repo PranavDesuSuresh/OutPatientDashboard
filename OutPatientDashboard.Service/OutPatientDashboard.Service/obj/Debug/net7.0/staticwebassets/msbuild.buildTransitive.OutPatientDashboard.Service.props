@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\OutPatientDashboard.Service.props" />
-</Project>
