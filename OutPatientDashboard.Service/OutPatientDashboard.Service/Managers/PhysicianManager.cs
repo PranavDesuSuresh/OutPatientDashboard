@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using OutPatientDashboard.Service.Data;
 using OutPatientDashboard.Service.DTO.Physician;
 using OutPatientDashboard.Service.Models;
+using OutPatientDashboard.Service.Util;
 
 namespace OutPatientDashboard.Service.Managers
 {
@@ -16,13 +17,15 @@ namespace OutPatientDashboard.Service.Managers
 
     public class PhysicianManager : IPhysicianManager
     {
-        private readonly ApplicationDBContext _context;
+        private readonly IApplicationDBContext _context;
         private readonly IMapper _mapper;
+        private readonly ICustomLogger _logger;
 
-        public PhysicianManager(ApplicationDBContext context, IMapper mapper)
+        public PhysicianManager(IApplicationDBContext context, IMapper mapper, ICustomLogger logger)
         {
             _context = context;
             _mapper = mapper;
+            _logger = logger;
         }
 
         public async Task<List<PhysicianIdNameDto>> GetPhysicianList()
@@ -39,8 +42,9 @@ namespace OutPatientDashboard.Service.Managers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.Error(ex);
                 throw;
             }
             return physiciansList;
@@ -58,8 +62,9 @@ namespace OutPatientDashboard.Service.Managers
                     && p.DischargeDate.HasValue
                     && p.DischargeDate.Value.Month == (DateTime.Now.Month - 1));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.Error(ex);
                 throw;
             }
 

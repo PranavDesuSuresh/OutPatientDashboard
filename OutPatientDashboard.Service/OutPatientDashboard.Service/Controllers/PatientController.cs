@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using OutPatientDashboard.Service.Managers;
+using OutPatientDashboard.Service.Util;
 
 namespace OutPatientDashboard.Service.Controllers
 {
@@ -9,10 +9,12 @@ namespace OutPatientDashboard.Service.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientManager _patientManager;
+        private readonly ICustomLogger _logger;
 
-        public PatientController(IPatientManager patientManager)
+        public PatientController(IPatientManager patientManager, ICustomLogger logger)
         {
             _patientManager = patientManager;
+            _logger = logger;
         }
 
         [HttpGet("incarecount")]
@@ -26,6 +28,7 @@ namespace OutPatientDashboard.Service.Controllers
             }
             catch (Exception ex)
             {
+                _logger.Error(ex);
                 throw;
             }
         }
@@ -41,6 +44,7 @@ namespace OutPatientDashboard.Service.Controllers
             }
             catch (Exception ex)
             {
+                _logger.Error(ex);
                 throw;
             }
         }

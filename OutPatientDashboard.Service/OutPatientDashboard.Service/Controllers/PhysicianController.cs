@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OutPatientDashboard.Service.Managers;
+using OutPatientDashboard.Service.Util;
 
 namespace OutPatientDashboard.Service.Controllers
 {
@@ -11,11 +12,13 @@ namespace OutPatientDashboard.Service.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IPhysicianManager _physicianManager;
+        private readonly ICustomLogger _logger;
 
-        public PhysicianController(IMapper mapper, IPhysicianManager physicianManager)
+        public PhysicianController(IMapper mapper, IPhysicianManager physicianManager, ICustomLogger logger)
         {
             _mapper = mapper;
             _physicianManager = physicianManager;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -32,8 +35,9 @@ namespace OutPatientDashboard.Service.Controllers
 
                 return Ok(physicians);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.Error(ex);
                 throw;
             }
         }
@@ -47,8 +51,9 @@ namespace OutPatientDashboard.Service.Controllers
 
                 return Ok(throughput);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.Error(ex);
                 throw;
             }
         }

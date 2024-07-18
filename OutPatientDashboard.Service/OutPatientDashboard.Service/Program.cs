@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using OutPatientDashboard.Service.Data;
 using OutPatientDashboard.Service.Managers;
+using OutPatientDashboard.Service.Util;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(Options =>
 });
 
 // DI 
+builder.Services.AddScoped<ICustomLogger, CustomLogger>();
+builder.Services.AddScoped<IApplicationDBContext, ApplicationDBContext>();
 builder.Services.AddScoped<IPatientManager, PatientManager>();
 builder.Services.AddScoped<IPhysicianManager, PhysicianManager>();
 
@@ -30,6 +33,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/error");
 }
 
 app.UseHttpsRedirection();

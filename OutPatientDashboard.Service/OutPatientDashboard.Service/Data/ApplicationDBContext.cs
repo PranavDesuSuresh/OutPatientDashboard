@@ -4,7 +4,15 @@ using System.Collections.Generic;
 
 namespace OutPatientDashboard.Service.Data
 {
-    public class ApplicationDBContext : DbContext
+    public interface IApplicationDBContext
+    {
+        DbSet<Patient> Patient { get; set; }
+        DbSet<Physician> Physician { get; set; }
+        DbSet<Speciality> Speciality { get; set; }
+        DbSet<StatusType> StatusType { get; set; }
+    }
+
+    public class ApplicationDBContext : DbContext, IApplicationDBContext
     {
         public ApplicationDBContext(DbContextOptions dbContextOptions)
             : base(dbContextOptions)

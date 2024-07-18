@@ -12,11 +12,13 @@ namespace OutPatientDashboard.Service.Managers
 
     public class PatientManager : IPatientManager
     {
-        private readonly ApplicationDBContext _context;
+        private readonly IApplicationDBContext _context;
+        private readonly ILogger _logger;
 
-        public PatientManager(ApplicationDBContext context)
+        public PatientManager(IApplicationDBContext context, ILogger logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<int> GetInCarePatientCount()
@@ -32,6 +34,7 @@ namespace OutPatientDashboard.Service.Managers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
             return inCarePatientCount;
@@ -52,6 +55,7 @@ namespace OutPatientDashboard.Service.Managers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 throw;
             }
             return patientsDischargeCount;
