@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OutPatientDashboard.Service.Data;
+using OutPatientDashboard.Service.Util;
 
 namespace OutPatientDashboard.Service.Managers
 {
@@ -13,9 +14,9 @@ namespace OutPatientDashboard.Service.Managers
     public class PatientManager : IPatientManager
     {
         private readonly IApplicationDBContext _context;
-        private readonly ILogger _logger;
+        private readonly ICustomLogger _logger;
 
-        public PatientManager(IApplicationDBContext context, ILogger logger)
+        public PatientManager(IApplicationDBContext context, ICustomLogger logger)
         {
             _context = context;
             _logger = logger;
@@ -34,7 +35,7 @@ namespace OutPatientDashboard.Service.Managers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.Error(ex);
                 throw;
             }
             return inCarePatientCount;
@@ -55,7 +56,7 @@ namespace OutPatientDashboard.Service.Managers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                _logger.Error(ex);
                 throw;
             }
             return patientsDischargeCount;

@@ -5,8 +5,8 @@ import { getData } from "../api";
 import PhysicianThroughput from "../CustomComponents/PhysicianThroughPut/PhysicianThroughput";
 
 function Dashboard() {
-  const [selectedInPatientCount, setSelectedInPatientCount] = useState(-1);
-  const [selectedPatientCount, setSelectedPatientCount] = useState(-1);
+  const [selectedInPatientCount, setSelectedInPatientCount] = useState();
+  const [selectedPatientCount, setSelectedPatientCount] = useState();
 
   useEffect(() => {
     getData(import.meta.env.VITE_BASE_URL + "patient/incarecount").then(
